@@ -1,0 +1,32 @@
+<div class="form-group">
+
+
+    <p>
+        Ok, you are ready to get your account. This is your last chance to see and copy down your keys again. After
+        this, you cannot recover them if you lose them!
+    </p>
+
+    <div class="mt-4 d-block">
+        <button class="btn btn-secondary btn-block " onclick="window.SteemNinja.backupPassword()">Show My Keys Again
+        </button>
+        <hr>
+    </div>
+    <div class="mt-4 d-block">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="tos">
+                    <label class="form-check-label" for="tos">I have read and accept the <a href="https://steem.ninja/steem_ninja_tos_03_19.pdf" target="_blank">Terms of Service</a> and <a href="https://steem.ninja/steem_ninja_privacy_policy_03_19.pdf" target="_blank">Privacy Policy Agreement</a> .</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3 d-none" id="paySection">
+            <div class="col-12">
+                <button class="btn btn-block btn-primary mt-4 mt-md-0 btn-ninja btn-checkout"
+                        onclick="window.SteemNinja.cryptoCheckout()">Pay with ETH</button>
+            </div>
+        </div>
+
+    </div>
+</div>

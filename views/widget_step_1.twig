@@ -1,0 +1,17 @@
+<div class="form-group">
+    <p>Please chose your username for Steem. <br>
+        <b>You can not change your username after your account was created.</b> <br>
+        Chose wisely.</p>
+    <input maxlength="16" autocomplete="off" type="text" id="username" class="form-control" style="text-transform: lowercase">
+    <small class="text-danger mt-2" id="username_error"></small>
+    <small class="text-success" id="username_success"></small>
+
+    <small class="d-block">
+        Usernames must be longer than <b>3</b> and shorter than <b>16</b> characters.<br />
+        Usernames must only contain lowercase latin letters.
+    </small>
+
+    <div class="text-center w-100">
+        <button style="width: 77%" class="btn btn-primary btn-ninja mt-4" onclick="window.SteemNinja.validateUsername()">Validate Username</button>
+    </div>
+</div>

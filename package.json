@@ -1,0 +1,32 @@
+{
+  "name": "steem.ninja",
+  "description": "Sell Steem Accounts for ETH",
+  "version": "1.2.5",
+  "keywords": [
+    "steem",
+    "ethereum"
+  ],
+  "maintainers": [
+    {
+      "name": "wehmoen",
+      "email": "nico@wehmoen.limited",
+      "web": "https://github.com/wehmoen"
+    }
+  ],
+  "dependencies": {
+    "coinbase-commerce-node": "^1.0.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "steem": "^0.7.4",
+    "twig": "~0.10.3"
+  },
+  "licenses": [
+    {
+      "name": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License",
+      "url": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+    }
+  ]
+}

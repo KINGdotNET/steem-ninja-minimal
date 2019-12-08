@@ -1,0 +1,20 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <h1>{{title}}</h1>
+  <p>Welcome to {{title}}</p>
+
+  <a class="ninja-widget" href="https://widget.steem.ninja/widget.html" data-referrer="wehmoen" data-name="Oracle-D" data-image="https://cdn.steem.ninja/Steem_Ninja_Character.png" title="Register a Steem account">Get your Steem account now!</a>
+  <script src="/ninja.js"></script>
+  <script>
+    window.addEventListener("ninja.loaded", () => {
+      console.log("RECEIVED => ninja.loaded");
+    });
+    window.addEventListener("ninja.checkout", (e) => {
+      console.log("RECEIVED => ninja.checkout", e.detail);
+    });
+  </script>
+  <script>
+
+  </script>
+{% endblock %}

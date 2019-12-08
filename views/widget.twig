@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Steem.Ninja - Account Creation Widget</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="author" content="@wehmoen">
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-6jHF7Z3XI3fF4XZixAuSu0gGKrXwoX/w3uFPxC56OtjChio7wtTGJWRW53Nhx6Ev" crossorigin="anonymous">
+
+    <style>
+        html, body {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .step {
+            display: none;
+        }
+
+        .modal {
+            overflow: scroll !important;
+        }
+
+        .modal-header {
+            display: block;
+            text-align: center;
+        }
+
+        .modal-header .close {
+            position: absolute;
+            right: 10px;
+            top: 25px;
+        }
+        @media (max-width: 576px) {
+            #curtain {
+                height: 250px !important;
+            }
+        }
+        * {
+            -webkit-overflow-scrolling: touch !important;
+        }
+
+        .btn-ninja {
+            background: #F16567;
+            border: #8b3d3f;
+        }
+        .btn-ninja:hover, .btn-ninja:active {
+            background: #cf5b5e;
+            border: #F16567;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="source-modal" class="modal fade">
+        <div class="modal-dialog" style="max-width: 700px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="{{ query.image|striptags|raw }}" class="rounded-circle"
+                         style="max-width: 75px; height: auto" alt="">
+                    <h4 class="modal-title">{{ query.name|striptags|raw }}</h4>
+                    <h5>{{ query.title|striptags|raw }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    {% if isDisabled %}
+                        <div class="step stem_welcome">
+
+                            <p class="text-bold">Steem.Ninja is currently unavailable</p>
+
+                            <blockquote>
+                                <b>IMPORTANT NOTE</b>: We are currently updating Steem.Ninja with new and exciting features. Please come back later. For more information please contact support@oracle-d.com or join our Discord server at:
+                                <a href="https://discord.me/steemninja" target="_blank">https://discord.me/steemninja</a>
+                            </blockquote>
+                        </div>
+                    {% else %}
+                    <div class="step stem_welcome">
+
+                        <p class="text-bold">Before {% if type is defined %}creating{% else %}purchasing{% endif %} an account please read the information below carefully:</p>
+
+                        <blockquote>
+                            <b>IMPORTANT NOTE</b>: There is no password reset on Steem. It is your responsibility to
+                            make sure you keep your keys safe and never lose them. Make sure you make a printed backup
+                            and keep it safe.
+                        </blockquote>
+
+                        <div class="w-100 text-center">
+                            <button style="width: 77%" class="btn btn-ninja btn-primary"
+                                    onclick="window.SteemNinja.navigate('name')">
+                                I understand. Continue
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="step step_name">
+                        {% include 'widget_step_1.twig' %}
+                    </div>
+                    <div class="step step_backup">
+                        {% include 'widget_step_2.twig' %}
+                    </div>
+                    <div class="step step_loading">
+                        {% include 'widget_step_loading.twig' %}
+                    </div>
+                    <div class="step step_finish">
+                        {% include 'widget_step_finish.twig' %}
+                    </div>
+                    <div class="step step_failure">
+                        {% include 'widget_step_failure.twig' %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+
+                    <small>
+                        Powered by <a href="https://steem.ninja?utm_source=widget" target="_blank">Steem.Ninja</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="credential-modal" class="modal fade">
+        <div class="modal-dialog" style="max-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="{{ query.image|striptags|raw }}" class="rounded-circle"
+                         style="max-width: 75px; height: auto" alt="">
+                    <h4 class="modal-title">Password backup</h4>
+                    <h5>
+                        Make sure you store your password and keys in a secure place.
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-danger">
+                        Please store the keys below in a secure place. <br>
+                        If you lose them you will lose the access to your account.
+                    </p>
+
+                    <textarea class="form-control" id="credentials" rows="10" readonly style="resize: none"></textarea>
+
+                    <button class="btn btn-primary btn-copy btn-block mt-2 mb-2 d-md-none"  data-clipboard-target="#credentials">Copy Keys to Clipboard</button>
+
+                    <p class="mt-1">
+                        <strong>Here is a brief description of your keys:</strong><br>
+                        <b>POSTING KEY:</b> Allows you to post content to the blockchain, make comments and claim
+                        rewards and login to most Dapps.
+                        <br>
+                        <b>ACTIVE KEY:</b> Allows you to connect with applications on the blockchain, and send Steem to
+                        other users
+                        <br>
+                        <b>OWNER KEY:</b> Is used to be able to change all the other keys.
+                        <br>
+                        <b>PASSWORD:</b> This is your account password. It is used to reset the other keys including the
+                        owner key. <b>Never use this password to login.</b>
+                    </p>
+                    <hr>
+                    <div class="mt-3">
+                        <input type="checkbox" class="" id="dl_check">
+                        I have saved the keys above. I understand
+                            that it is not possible to recover my keys if I lose them. I hereby accept the <a
+                                    href="https://steem.ninja/steem_ninja_tos_03_19.pdf" target="_blank">Terms of
+                                Service</a> and <a href="https://steem.ninja/steem_ninja_privacy_policy_03_19.pdf"
+                                                   target="_blank">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="credentials_footer" class="btn btn-ninja text-white btn-block disabled" disabled
+                            data-dismiss="modal">Continue
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script src="https://unpkg.com/popper.js@1.14.7/dist/umd/popper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/steem/dist/steem.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=ARn-QCz7RJtJgkJ78f4rC9owP2VK0ptH6TbwO7EdU8TvVUV99HXRGxwX1H5eqvhRv59vdTH6SAgAWJhj&currency=USD&disable-funding=credit,card,sepa"></script>
+<script>
+    const redirect = "https://steemit.com/@steem.ninja";
+    $(() => {
+        window.cpb = new ClipboardJS('.btn-copy');
+        window.cpb.on('success', function(e) {
+            Swal.fire({
+                type: 'success',
+                title: 'Success',
+                text: 'All keys were copied to your clipboard. Make sure to save them into a text document before you continue!',
+            })
+        });
+        $('#tos').on("change", () => {
+            if($('#tos').prop("checked") === true) {
+                $('#paySection').removeClass("d-none")
+            } else {
+                $('#paySection').addClass("d-none")
+            }
+        })
+    })
+</script>
+<script src="/widget.js"></script>
+<script>
+    window.SteemNinja.params = window.SteemNinja.params | {};
+    window.SteemNinja.params = Object.assign(window.SteemNinja.params, {
+        image: '{{ query.image|striptags|raw }}',
+        referrer: '{{ query.referrer|striptags|raw }}',
+    })
+</script>
+
+</body>
+</html>
